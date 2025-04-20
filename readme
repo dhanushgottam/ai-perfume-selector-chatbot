@@ -1,0 +1,60 @@
+AI Perfume Selector
+
+Overview
+The AI Perfume Selector is an innovative web-based application designed to help users discover and select perfumes tailored to their unique preferences. Using advanced artificial intelligence, the system analyzes a user’s inputs such as fragrance notes, personal preferences, and even mood, to recommend perfumes that align with their taste.
+
+This project leverages machine learning algorithms and a personalized recommendation system to provide a seamless and enjoyable perfume selection experience. The interface is designed to be intuitive, ensuring that users can easily navigate and find the best fragrance suited for them.
+
+Features
+1.  **Fragrance Note Analysis**: The AI Perfume Selector analyzes a user’s preferred
+fragrance notes, such as floral, woody, or citrus, to narrow down the selection.
+2.  **Personalized Recommendations**: Based on user inputs, the system generates a list of recommended
+perfumes that match their preferences.
+3.  **Mood-Based Selection**: Users can input their current mood, such as happy,
+sad, or relaxed, to receive perfume suggestions that complement their emotional state.
+4.  **User Profile Management**: Users can create and manage their profiles, saving their preferences and
+recommended perfumes for future reference.
+5.  **Search and Filter**: Users can search for perfumes by name, brand, or
+fragrance note, and filter results based on their preferences.
+6.  **Rating and Review System**: Users can rate and review perfumes, helping to improve
+the recommendation system over time.
+7.  **Integration with E-commerce Platforms**: The AI Perfume Selector can be integrated with e
+-commerce platforms, allowing users to purchase recommended perfumes directly from the application.
+
+Personalized Recommendations: The AI analyzes user inputs to suggest the most suitable perfumes based on fragrance families, notes, and user preferences.
+
+User-friendly Interface: A sleek and intuitive design that allows users to easily interact with the perfume selector.
+
+AI-Powered Matching: Uses machine learning algorithms to enhance the perfume selection process, ensuring highly accurate recommendations.
+
+Mood-Based Suggestions: Allows users to choose perfumes based on their current mood, ensuring the perfect scent for every occasion.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+#Technologies Used
+
+Flask: A lightweight Python web framework used to build the application.
+
+Machine Learning: Algorithms for personalizing perfume recommendations.
+
+HTML/CSS/JS: Frontend development to create an interactive and responsive user interface.
+
+Python: Backend for processing user inputs and generating recommendations.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Installation:
+Clone the repository:
+
+#bash or commend line
+git clone <repository-url>
+Install the dependencies:
+
+#bash or commendline or terminal
+pip install -r requirements.txt
+Run the application:
+
+bash
+python app.py
+Visit http://localhost:5000 in your browser.
+
+Contributing
+If you would like to contribute to the project, please fork the repository and submit a pull request with your changes. All contributions are welcome!
