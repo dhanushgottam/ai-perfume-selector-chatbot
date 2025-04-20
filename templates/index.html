@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Perfume Chat Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --text-light: #000;
+      --text-dark: #fff;
+      --user-bg: #e0e0e0;
+      --bot-bg: #f0f0f0;
+      --bot-bg-dark: #333;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      color: var(--text-light);
+      transition: background 0.5s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: var(--text-dark);
+    }
+
+    .header {
+      padding: 20px;
+      background: #5f4b8b;
+      color: white;
+      font-size: 1.5em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .header .left-title {
+      flex: 1;
+    }
+
+    .header .header-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header .header-button {
+      padding: 4px 8px;
+      background-color: white;
+      color: #5f4b8b;
+      border: none;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 0.8em;
+      transition: background 0.3s, transform 0.2s;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .header .header-button:hover {
+      background-color: #ddd;
+    }
+
+    body.dark-mode .header .header-button {
+      background-color: #333;
+      color: white;
+    }
+
+    body.dark-mode .header .header-button:hover {
+      background-color: #444;
+    }
+
+    .chat-container {
+      max-width: 700px;
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      padding: 20px;
+      height: 500px;
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.dark-mode .chat-container {
+      background: rgba(42, 42, 42, 0.8);
+    }
+
+    .message {
+      display: flex;
+      flex-direction: column;
+      margin: 10px 0;
+    }
+
+    .user, .bot {
+      padding: 12px 16px;
+      border-radius: 10px;
+      max-width: fit-content;
+      white-space: pre-wrap;
+      display: inline-block;
+    }
+
+    .user {
+      background: var(--user-bg);
+      align-self: flex-end;
+      text-align: right;
+      color: var(--text-light);
+    }
+
+    body.dark-mode .user {
+      background: #222;
+      color: #fff;
+    }
+
+    .bot {
+      background: var(--bot-bg);
+      align-self: flex-start;
+    }
+
+    body.dark-mode .bot {
+      background: var(--bot-bg-dark);
+      color: white;
+    }
+
+    form {
+      display: flex;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 12px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+      background-color: white;
+      color: #000;
+    }
+
+    body.dark-mode input[type="text"] {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    button[type="submit"] {
+      padding: 12px 20px;
+      font-size: 1em;
+      background-color: #5f4b8b;
+      color: white;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+    }
+
+    .typing-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 16px;
+      margin-top: 10px;
+      background: var(--bot-bg);
+      border-radius: 10px;
+      width: fit-content;
+      align-self: flex-start;
+    }
+
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background-color: #999;
+      border-radius: 50%;
+      display: inline-block;
+      animation: bounce 1.2s infinite ease-in-out both;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    body.dark-mode .typing-indicator {
+      background: var(--bot-bg-dark);
+    }
+
+    body.dark-mode .typing-indicator span {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="left-title">🌸 AI Perfume Chat Assistant</div>
+    <div class="header-buttons">
+      <button class="header-button" onclick="window.location.href='/login'">Login</button>
+      <button class="header-button" onclick="location.href='/signup'">Sign Up</button>
+      <button class="header-button" onclick="toggleTheme()">Theme</button>
+    </div>
+  </div>
+
+  <div class="chat-container" id="chat-box">
+    <!-- Chat messages will appear here -->
+  </div>
+
+  <form id="chat-form">
+    <input type="text" id="message" placeholder="Type your message..." autocomplete="off" required />
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const chatBox = document.getElementById('chat-box');
+    const input = document.getElementById('message');
+
+    function appendMessage(text, sender) {
+      const msgWrapper = document.createElement('div');
+      msgWrapper.className = 'message';
+      const div = document.createElement('div');
+      div.className = sender;
+      div.textContent = text;
+      msgWrapper.appendChild(div);
+      chatBox.appendChild(msgWrapper);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function appendTypingIndicator() {
+      const typingWrapper = document.createElement('div');
+      typingWrapper.className = 'message';
+      typingWrapper.id = 'typing-wrapper';
+
+      const typing = document.createElement('div');
+      typing.className = 'typing-indicator';
+      typing.innerHTML = '<span></span><span></span><span></span>';
+
+      typingWrapper.appendChild(typing);
+      chatBox.appendChild(typingWrapper);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const typing = document.getElementById('typing-wrapper');
+      if (typing) {
+        chatBox.removeChild(typing);
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const message = input.value;
+      appendMessage(message, 'user');
+      input.value = '';
+
+      appendTypingIndicator();
+
+      const res = await fetch('/ask', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({message})
+      });
+
+      const data = await res.json();
+      removeTypingIndicator();
+      appendMessage(data.reply, 'bot');
+    });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
