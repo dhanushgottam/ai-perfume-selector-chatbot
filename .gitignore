@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+*.log
+
+# Environment
+.env
+venv/
+ENV/
+env/
+*.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Flask-specific
+instance/
+*.sqlite3
+*.db
+
+# Jupyter
+.ipynb_checkpoints/
